@@ -1,0 +1,46 @@
+name: Rosterfy Checker
+
+on:
+  # schedule:
+  #   - cron: '*/15 * * * *' # Every 15 min
+  #     timezone: "Australia/Melbourne"
+  workflow_dispatch: # optional manual trigger
+
+jobs:
+  check-events:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install requests pytz
+
+      - name: Run Rosterfy script
+        env:
+          ROSTERFY_URL: ${{ secrets.ROSTERFY_URL }}
+          ROSTERFY_HEADERS: ${{ secrets.ROSTERFY_HEADERS }}
+          EVENTS_WEBHOOK_URL: ${{ secrets.EVENTS_WEBHOOK_URL }}
+          STATUS_WEBHOOK_URL: ${{ secrets.STATUS_WEBHOOK_URL }}
+          NTFY_TOPIC: ${{ secrets.NTFY_TOPIC }}
+        run: python spark_script.py
+        
+      - name: Commit updated seen_ids
+        run: |
+          git config user.name "sakshamp00"
+          git config user.email "purisaksham05@gmail.com"
+          git add seen_ids.json
+           # Check if there are changes
+          if git diff --cached --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "Update seen_ids"
+            git pull origin main --rebase
+            git push
+          fi
