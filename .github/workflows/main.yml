@@ -33,8 +33,8 @@ jobs:
         
       - name: Commit updated seen_ids
         run: |
-          git config user.name "sakshamp00"
-          git config user.email "purisaksham05@gmail.com"
+          git config user.name "potatodoood"
+          git config user.email "sakshampuri0505@gmail.com"
           git add seen_ids.json
            # Check if there are changes
           if git diff --cached --quiet; then
