@@ -126,7 +126,6 @@ try:
     if random.random() < 0.2:
         print("Skipping this run")
         notify_discord("Skipping this run!", status=True)
-        notify_phone("SKipping", tags="rotating_light")
         exit()
     notify_discord(f"🚀 Script started at {now_str()}", status=True)
     # delay = random.randint(0, 3*60)
