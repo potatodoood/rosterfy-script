@@ -125,7 +125,7 @@ try:
     # Random skips
     if random.random() < 0.2:
         print("Skipping this run")
-        notify_discord("Skipping this run!")
+        notify_discord("Skipping this run!", status=True)
         exit()
     notify_discord(f"🚀 Script started at {now_str()}", status=True)
     # delay = random.randint(0, 3*60)
