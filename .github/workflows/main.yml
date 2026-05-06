@@ -5,7 +5,9 @@ on:
   #   - cron: '*/15 * * * *' # Every 15 min
   #     timezone: "Australia/Melbourne"
   workflow_dispatch: # optional manual trigger
-
+concurrency:
+  group: rosterfy-check
+  cancel-in-progress: true
 jobs:
   check-events:
     runs-on: ubuntu-latest
