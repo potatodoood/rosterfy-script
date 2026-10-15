@@ -82,6 +82,11 @@ def get_events():
                 tags="error,alert"
             )
             exit()
+
+        print(f"Rosterfy status: {r.status_code}")
+        print(f"Response content-type: {r.headers.get('Content-Type')}")
+        print(f"Response body: {r.text[:500]}")
+
         data = r.json()
         
         for item in data.get("data", []):
