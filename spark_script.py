@@ -86,6 +86,10 @@ def get_events():
         print(f"Rosterfy status: {r.status_code}")
         print(f"Response content-type: {r.headers.get('Content-Type')}")
         print(f"Response body: {r.text[:500]}")
+        print("Redirect history:", [
+            (response.status_code, response.url)
+            for response in r.history
+        ])
 
         data = r.json()
         
